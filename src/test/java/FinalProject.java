@@ -2,6 +2,7 @@ import com.codeborne.selenide.Configuration;
 import data.LoginData;
 import data.RegistrationData;
 import data.SearchData;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import steps.LoginSteps;
 import steps.RegistrationSteps;
@@ -10,6 +11,7 @@ import steps.SearchSteps;
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 
+@Epic("Try logging in, signing up and filtering by prices")
 public class FinalProject {
     LoginSteps loginSteps = new LoginSteps();
     LoginData loginData = new LoginData();
@@ -25,6 +27,9 @@ public class FinalProject {
         baseUrl = "https://www.swoop.ge/";
     }
     @Test
+    @Description("Failed login")
+    @Story("Try logging in without password")
+    @Attachment
     public void firstTest(){
         open(baseUrl);
         loginSteps.
@@ -34,6 +39,9 @@ public class FinalProject {
     }
 
     @Test
+    @Description("Check Registration Page")
+    @Story("Check registration page for a legal person")
+    @Attachment
     public void secondTest(){
         open(baseUrl);
         registrationSteps.
@@ -43,6 +51,9 @@ public class FinalProject {
     }
 
     @Test(dependsOnMethods = "secondTest")
+    @Description("Failed registration")
+    @Story("Try signing up without an email")
+    @Attachment
     public void thirdTest() {
         registrationSteps.
                 registration(registrationData.form,
@@ -59,6 +70,9 @@ public class FinalProject {
     }
 
     @Test
+    @Description("Filter by price")
+    @Story("Filter vacation results that range from 170 to 180")
+    @Attachment
     public void fourthTest(){
         open(baseUrl);
         searchSteps.
